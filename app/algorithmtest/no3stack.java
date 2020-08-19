@@ -38,8 +38,8 @@ class no3Stack {
             if (stack.empty()) {
                 return;
             }
-            int p = stack.peek();
             stack.pop();
+            int p = stack.peek();
 
             if (p > max) {
                 max = p;
