@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?><!--suppress AndroidUnknownAttribute -->
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.facio.apps.ui.addTrip.AddTripViewModel" />
+    </data>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_small">
+
+            <TextView
+                style="@style/TextAppearance.Text.Regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="Add Trip"
+                android:textSize="@dimen/text_xxxl" />
+
+            <TextView
+                style="@style/TextAppearance.Text.Regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_hmed"
+                android:gravity="start"
+                android:text="From Station"
+                android:textSize="@dimen/text_ml" />
+
+            <EditText
+                android:id="@+id/edt_from_station"
+                style="@style/EditTextApps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:afterTextChanged="@{viewModel::afterFromStationChanged}"
+                android:hint="From Station"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/padding_small" />
+
+            <TextView
+                style="@style/TextAppearance.Text.Regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_smed"
+                android:gravity="start"
+                android:text="To Station"
+                android:textSize="@dimen/text_ml" />
+
+            <EditText
+                android:id="@+id/edt_to_station"
+                style="@style/EditTextApps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:afterTextChanged="@{viewModel::afterToStationChanged}"
+                android:hint="To Station"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/padding_small" />
+
+            <TextView
+                style="@style/TextAppearance.Text.Regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_smed"
+                android:gravity="start"
+                android:text="Driver Name"
+                android:textSize="@dimen/text_ml" />
+
+            <EditText
+                android:id="@+id/edt_driver_name"
+                style="@style/EditTextApps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:afterTextChanged="@{viewModel::afterDriverNameChanged}"
+                android:hint="Driver Name"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/padding_small" />
+
+            <TextView
+                style="@style/TextAppearance.Text.Regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_smed"
+                android:gravity="start"
+                android:text="Status"
+                android:textSize="@dimen/text_ml" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                style="@style/EditTextApps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:entries="@array/status"
+                android:hint="@string/login_page_placeholder_email"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/padding_small"
+                bind:selectedValue="@={viewModel.status}" />
+
+            <TextView
+                style="@style/TextAppearance.Text.Regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_smed"
+                android:gravity="start"
+                android:text="ETA"
+                android:textSize="@dimen/text_ml" />
+
+            <EditText
+                android:id="@+id/edt_eta"
+                style="@style/EditTextApps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Estimated Time Arrive"
+                android:inputType="textEmailAddress"
+                android:onClick="@{()->viewModel.openDatePicker()}"
+                android:padding="@dimen/padding_small"
+                android:text="@{viewModel.eta}"
+                tools:ignore="KeyboardInaccessibleWidget" />
+
+            <Button
+                android:id="@+id/btn_login"
+                style="@style/ButtonApp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/default_button"
+                android:onClick="@{() -> viewModel.createTrip()}"
+                android:text="Create Trip"
+                android:textAllCaps="true" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>
