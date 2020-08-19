@@ -1,5 +1,6 @@
 package com.facio.apps.data.remote
 
+import com.facio.apps.domain.entities.TripsEntity
 import com.facio.apps.domain.entities.response.UserResponse
 import kotlinx.coroutines.runBlocking
 import org.junit.*
@@ -30,25 +31,12 @@ class TripsRepositoryTest {
     }
 
     @Test
-    fun testSearchSuccessful() {
+    fun testGetSuccessful() {
         runBlocking {
-            val observer = repository!!.searchUser("a", 1)!!.test()
+            val observer = repository!!.getTrips()!!.test()
             observer.awaitTerminalEvent()
-            observer.assertNoErrors().assertValue { r: UserResponse -> r.items?.size!! > 0 }
+            observer.assertNoErrors().assertValue { r: List<TripsEntity> -> r.isNotEmpty() }
         }
     }
 
-    @Test
-    fun testSearchUnsuccessful() {
-        runBlocking {
-            val observer = try {
-                repository!!.searchUser("", 1)!!.test()
-            } catch (e: java.lang.Exception) {
-                Assert.assertTrue(e.message.equals("HTTP 422 Unprocessable Entity"))
-            }
-//            observer.awaitTerminalEvent()
-//            observer.assertNoErrors().assertValue { r: UserResponse -> r.errors?.isNotEmpty()!! }
-        }
-
-    }
 }

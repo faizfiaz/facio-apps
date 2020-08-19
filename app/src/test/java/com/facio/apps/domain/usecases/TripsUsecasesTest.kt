@@ -33,44 +33,11 @@ class TripsUsecasesTest {
     }
 
     @Test
-    fun testGetUser() {
+    fun testGetTrips() {
         runBlocking {
-            var data = userUsecases!!.getUser("a", 1).test()
+            var data = userUsecases!!.getTrips().test()
             data.assertComplete()
             Assert.assertTrue(data.values() is List<*>)
         }
-    }
-
-    @Test
-    fun testGetUserInvalid() {
-        runBlocking {
-            var data = try {
-                userUsecases!!.getUser("", 1).test()
-            } catch (e: Exception) {
-                Assert.assertTrue(e.message.equals("HTTP 422 Unprocessable Entity"))
-            }
-        }
-    }
-
-    @Test
-    fun testGetUserMaxReach() {
-        runBlocking {
-            var data = try {
-                userUsecases!!.getUser("a", 1).test()
-            } catch (e: Exception) {
-                Assert.assertTrue(e.message.equals("HTTP 403 rate limit exceeded"))
-            }
-            (data as TestObserver<*>).assertComplete()
-        }
-    }
-
-    @Test
-    fun checkResponseError() {
-        var responseError = UserResponse()
-        responseError.message = "error"
-        responseError.errors = arrayListOf(ErrorEntity("test", "test", "422"))
-        var data = userUsecases!!.checkResponse(responseError)
-        Assert.assertTrue(data.blockingGet() is String)
-
     }
 }
