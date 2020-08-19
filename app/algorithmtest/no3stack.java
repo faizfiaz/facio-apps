@@ -3,30 +3,34 @@ import java.util.Stack;
 class no3Stack {
     public static void main(String[] args) {
         StackMaxInteger s = new StackMaxInteger();
+        s.push(3);
         s.push(1);
-        s.push(10);
-        s.push(1200);
-        s.push(131);
-        s.push(12);
-        s.push(12001);
+        s.push(5);
+        s.pop();
+        s.push(790);
+        s.push(5);
+        s.pop();
+
         System.out.println(s.get());
     }
 
     static class StackMaxInteger {
         Stack<Integer> stack = new Stack<>();
-        int max;
+        int max = 0;
 
         int get() {
             if (stack.empty()) {
                 return -1;
             }
             return max;
+
         }
 
         int peek() {
             if (stack.empty()) {
                 return -1;
             }
+
             int p = stack.peek();
             if (p > max) {
                 return max;
@@ -38,11 +42,12 @@ class no3Stack {
             if (stack.empty()) {
                 return;
             }
-            stack.pop();
+            System.out.println(stack);
             int p = stack.peek();
+            stack.pop();
 
             if (p > max) {
-                max = p;
+                max = max * 2 - p;
             }
         }
 
@@ -52,8 +57,8 @@ class no3Stack {
                 stack.push(v);
                 return;
             }
-            if(v > max) {
-                stack.push(v);
+            if (v > max) {
+                stack.push(v * 2 - max);
                 max = v;
             } else {
                 stack.push(v);
